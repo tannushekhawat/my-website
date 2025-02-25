@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 Event & Conversion Tracking</title>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        // Replace G-XXXXXXXXXX with your GA4 Measurement ID
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+</head>
+<body>
+
+    <h1>GA4 Event & Conversion Tracking</h1>
+    <p>Click buttons below to test different Google Analytics events.</p>
+
+    <!-- Button Click Event -->
+    <button onclick="trackButtonClick()">Click Me!</button>
+
+    <!-- Registration Form -->
+    <form onsubmit="trackFormSubmission(event)">
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <!-- Add to Cart -->
+    <button onclick="trackAddToCart()">Add to Cart</button>
+
+    <!-- Purchase Event -->
+    <button onclick="trackPurchase()">Complete Purchase</button>
+
+    <script>
+        // Track Button Click
+        function trackButtonClick() {
+            gtag('event', 'button_click', {
+                'event_category': 'User Interaction',
+                'event_label': 'Test Button',
+                'value': 1
+            });
+            alert('Button Click Event Sent!');
+        }
+
+        // Track Form Submission (Registration)
+        function trackFormSubmission(event) {
+            event.preventDefault(); // Prevent actual form submission
+            
+            let email = document.getElementById('email').value;
+            
+            gtag('event', 'registration', {
+                'event_category': 'User Signup',
+                'event_label': 'Form Submission',
+                'value': 1,
+                'email': email
+            });
+
+            alert('Registration Event Sent!');
+        }
+
+        // Track Add to Cart
+        function trackAddToCart() {
+            gtag('event', 'add_to_cart', {
+                'event_category': 'Ecommerce',
+                'event_label': 'Add Product',
+                'value': 1,
+                'currency': 'USD',
+                'items': [{ id: 'P123', name: 'Sample Product', price: 50 }]
+            });
+            alert('Add to Cart Event Sent!');
+        }
+
+        // Track Purchase (Conversion Event)
+        function trackPurchase() {
+            gtag('event', 'purchase', {
+                'event_category': 'Ecommerce',
+                'event_label': 'Order Completed',
+                'value': 100,
+                'currency': 'USD',
+                'transaction_id': 'T12345',
+                'items': [{ id: 'P123', name: 'Sample Product', price: 50 }]
+            });
+            alert('Purchase Event (Conversion) Sent!');
+        }
+    </script>
+
+</body>
+</html>
